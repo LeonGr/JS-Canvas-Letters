@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title>Letters</title>
+	</head>
+	<body>
+        <p>Fork on <a href="https://github.com/LeonGr/JS-Canvas-Letters">GitHub</a></p>
+        <canvas id="canvas"></canvas>
+        <input type="text" id="word_input" placeholder="Type word and press return">
+
+        <div>
+            Performance depends on user's CPU power.
+            <br>
+            <br>
+            Longer words/sentences will use more recources.
+            <br>
+            <br>
+            Currently only support for letters and spaces.
+        </div>
+
+        <style>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #EEE;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+a {
+    color: red;
+}
+
+#canvas {
+    position: fixed;
+    z-index: -1;
+}
+#word_input {
+    position: relative;
+    top: 100px;
+    display: flex;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 200px;
+    height: 30px;
+    font-size: 15px;
+    padding: 5px;
+    outline: none;
+}
+
+div {
+    position: absolute;
+    bottom: 100px;
+    text-align: center;
+    font-family: Verdana, Arial, Helvetica;
+    font-size: 25px;
+    color: #333;
+}
+        </style>
+
+        <script src="js/alphabet.js"></script>
+        <script src="js/letterMethods.js"></script>
+        <script src="js/canvas.js"></script>
+    </body>
+</html>
