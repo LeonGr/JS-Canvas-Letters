@@ -3,9 +3,39 @@
         <title>Letters</title>
 	</head>
 	<body>
-        <p>Fork on <a href="https://github.com/LeonGr/JS-Canvas-Letters">GitHub</a></p>
+        <p>
+            Fork on <a href="https://github.com/LeonGr/JS-Canvas-Letters">GitHub</a>
+        </p>
         <canvas id="canvas"></canvas>
-        <input type="text" id="word_input" placeholder="Type word and press return">
+        <form>
+            <h1>Options:</h1>
+            <br>
+            <label for="word_input">Word/sentence to type:</label>
+            <br>
+            <input type="text" id="word_input" placeholder="Type word and press return" class="typed_input">
+            <br>
+            <br>
+            <label for="word_colour">Text colour:</label>
+            <br>
+            <input type="color" id="word_colour" value="#DD4620">
+            <br>
+            <br>
+            <label for="form_speed">Particle movement speed:</label>
+            <br>
+            <input type="number" id="form_speed" placeholder="Default is 5" class="typed_input" value="5">
+            <br>
+            <br>
+            <input type="checkbox" checked id="word_spread">
+            <label for="word_spread">Spread before forming new text</label>
+            <br>
+            <br>
+            <input type="checkbox" id="random_colour">
+            <label for="random_colour">Random colour</label>
+            <br>
+            <br>
+            <input type="checkbox"id="particle_vibrate" checked>
+            <label for="particle_vibrate">Particles vibrate</label>
+        </form>
 
         <div>
             Performance depends on user's CPU power.
@@ -23,6 +53,8 @@ body {
     justify-content: center;
     align-items: center;
     background: #EEE;
+    color: #333;
+    font-family: Verdana, Arial, Helvetica;
 }
 
 * {
@@ -44,10 +76,8 @@ a {
     position: fixed;
     z-index: -1;
 }
-#word_input {
-    position: relative;
-    top: 100px;
-    display: flex;
+
+.typed_input {
     border-radius: 5px;
     border: 1px solid #ccc;
     width: 200px;
@@ -55,15 +85,43 @@ a {
     font-size: 15px;
     padding: 5px;
     outline: none;
+    margin-top: 3px;
+}
+
+input[type=color]{
+    margin-top: 3px;
+}
+
+input[type=checkbox]{
+    width: 20px;
+    height: 20px;
+    outline: none;
+    background: white;
+    position: relative;
+    top: 4px;
+    color: #333;
+}
+
+form {
+    position: absolute;
+    left: 100px;
+    top: 100px;
+    border: 1px solid #333;
+    width: 300px;
+    padding: 20px;
+    padding-left: 60px;
 }
 
 div {
     position: absolute;
+    left: 100px;
     bottom: 100px;
-    text-align: center;
-    font-family: Verdana, Arial, Helvetica;
-    font-size: 25px;
     color: #333;
+    width: 360px;
+    border: 1px solid #333;
+    padding: 20px;
+    padding-left: 20px;
+    padding-right: 0px;
 }
         </style>
 

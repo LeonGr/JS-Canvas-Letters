@@ -1,8 +1,9 @@
 let getCoordinates = {
-    Lowest: function(array){
+    Lowest: function(array) {
+
         let lowest = Infinity;
-        for (let i = 0, x = array.length; i < x; i++){
-            if (array[i].y < lowest){
+        for (let i = 0, x = array.length; i < x; i++) {
+            if (array[i].y < lowest) {
                 lowest = array[i].y;
             }
         }
@@ -10,38 +11,51 @@ let getCoordinates = {
         return lowest;
     },
 
-    Leftest: function(array){
+    Leftest: function(array) {
+
         let leftest = Infinity;
-        for (let i = 0, x = array.length; i < x; i++){
-            if (array[i].x < leftest){
+
+        for (let i = 0, x = array.length; i < x; i++) {
+            if (array[i].x < leftest) {
                 leftest = array[i].x;
             }
         }
+
         return leftest;
     },
 
-    Rightest: function(array){
+    Rightest: function(array) {
+
         let rightest = 0;
-        for (let i = 0, x = array.length; i < x; i++){
-            if (array[i].x > rightest){
+
+        for (let i = 0, x = array.length; i < x; i++) {
+            if (array[i].x > rightest) {
                 rightest = array[i].x;
             }
         }
+
         return rightest;
     }
 }
 
-function drawWord(word){
+function drawWord(word) {
     let startIndex = 0
     let index = 0;
     let wordWidth = 0;
-    for (let k = 0, z = word.letters.split("").length; k < z; k++){
+
+    for (let k = 0, z = word.letters.split("").length; k < z; k++) {
+
         let letter = word.letters.split("")[k];
-        for(let i = 0, x = savedLetters.length; i < x; i++){
-            if (letter == savedLetters[i].name){
-                for(let j = 0, y = savedLetters[i].coords.length; j < y; j++){
+
+        for(let i = 0, x = savedLetters.length; i < x; i++) {
+
+            if (letter == savedLetters[i].name) {
+
+                for(let j = 0, y = savedLetters[i].coords.length; j < y; j++) {
+
                     let particleX = Math.round((savedLetters[i].coords[j].x - getCoordinates.Leftest(savedLetters[i].coords) + wordWidth) * 100) / 100;
                     let particleY = Math.round((word.y + savedLetters[i].coords[j].y - getCoordinates.Lowest(savedLetters[i].coords)) * 100) / 100;
+
                     letterParticles.push({
                         x: particleX,
                         y: particleY,
@@ -50,36 +64,45 @@ function drawWord(word){
                         vx: Math.round((Math.random() * (0.5 - (-0.5)) + -0.5) * 100) / 100,
                         vy: Math.round((Math.random() * (0.5 - (-0.5)) + -0.5) * 100) / 100,
                     })
-                    if(wordWidth + 250 > window.innerWidth){
+
+                    if(wordWidth + 250 > window.innerWidth) {
                         word.y += 120;
                         wordWidth = 0;
                     }
                 }
+
                 wordWidth += getCoordinates.Rightest(savedLetters[i].coords) - getCoordinates.Leftest(savedLetters[i].coords) + 20;
             }
         }
+
         if (letter == ' ') wordWidth += 50;
+
         if (letter.split("\n").length > 1) {
             word.y += 120;
             let particlesToMeasure = [];
-            for(let i = startIndex, x = letterParticles.length; i < x; i++){
+
+            for(let i = startIndex, x = letterParticles.length; i < x; i++) {
                 particlesToMeasure.push(letterParticles[i])
             }
+
             let offsetTest = (canvas.width - (getCoordinates.Rightest(particlesToMeasure) - getCoordinates.Leftest(particlesToMeasure))) / 2;
-            for(let i = startIndex, x = letterParticles.length; i < x; i++){
+
+            for(let i = startIndex, x = letterParticles.length; i < x; i++) {
                 let p = letterParticles[i];
                 p.x += offsetTest;
                 p.originalX += offsetTest;
             }
+
             startIndex = letterParticles.length;
             wordWidth = 0;
         }
+
         index++
     }
 }
 
-function spreadParticles(){
-    for(let i = 0, x = letterParticles.length; i < x; i++){
+function spreadParticles() {
+    for(let i = 0, x = letterParticles.length; i < x; i++) {
         let p = letterParticles[i];
 
         p.destination = {
@@ -90,43 +113,56 @@ function spreadParticles(){
     }
 }
 
-function formWord(word, random){
+function formWord(word, random) {
     let startIndex = 0;
     let newPositions = [];
     let index = 0;
     let wordWidth = 0;
-    for (let k = 0, z = word.letters.split("").length; k < z; k++){
+
+    for (let k = 0, z = word.letters.split("").length; k < z; k++) {
         let letter = word.letters.split("")[k];
-        for(let i = 0, x = savedLetters.length; i < x; i++){
-            if (letter == savedLetters[i].name){
-                for(let j = 0, y = savedLetters[i].coords.length; j < y; j++){
+
+        for(let i = 0, x = savedLetters.length; i < x; i++) {
+
+            if (letter == savedLetters[i].name) {
+
+                for(let j = 0, y = savedLetters[i].coords.length; j < y; j++) {
+
                     let particleX = Math.round((savedLetters[i].coords[j].x - getCoordinates.Leftest(savedLetters[i].coords) + wordWidth) * 100) / 100;
                     let particleY = Math.round((word.y + savedLetters[i].coords[j].y - getCoordinates.Lowest(savedLetters[i].coords)) * 100) / 100;
                     newPositions.push({
                         x: particleX,
                         y: particleY,
                     })
-                    if(wordWidth + 250 > window.innerWidth){
+
+                    if(wordWidth + 250 > window.innerWidth) {
                         word.y += 120;
                         wordWidth = 0;
                     }
                 }
+
                 wordWidth += getCoordinates.Rightest(savedLetters[i].coords) - getCoordinates.Leftest(savedLetters[i].coords) + 20;
             }
         }
+
         if (letter == ' ') wordWidth += 50;
+
         if (letter.split("\n").length > 1) {
             word.y += 120;
             let particlesToMeasure = [];
-            for(let i = startIndex, x = newPositions.length; i < x; i++){
+
+            for(let i = startIndex, x = newPositions.length; i < x; i++) {
                 particlesToMeasure.push(newPositions[i])
             }
+
             let offsetTest = (canvas.width - (getCoordinates.Rightest(particlesToMeasure) - getCoordinates.Leftest(particlesToMeasure))) / 2;
-            for(let i = startIndex, x = newPositions.length; i < x; i++){
+
+            for(let i = startIndex, x = newPositions.length; i < x; i++) {
                 let p = newPositions[i];
                 p.x += offsetTest;
                 p.originalX += offsetTest;
             }
+
             startIndex = newPositions.length;
             wordWidth = 0;
         }
@@ -135,26 +171,35 @@ function formWord(word, random){
 
     if (random) letterParticles.sort(function() { return 0.5 - Math.random() });
 
-    let moveBackSpeed = 5;
+    let moveBackSpeed = moveSpeed;
 
-    if(letterParticles.length < newPositions.length){
+    if(letterParticles.length < newPositions.length) {
         let index = 0;
 
-        for(let i = 0; i < letterParticles.length; i++){
+        for(let i = 0; i < letterParticles.length; i++) {
+
             let test = Math.ceil(newPositions.length / letterParticles.length);
-            for(let j = 1; j < test; j++){
+
+            for(let j = 1; j < test; j++) {
+
                 if(letterParticles.length == newPositions.length) break;
+
                 letterParticles.push(JSON.parse(JSON.stringify(letterParticles[i])));
             }
         }
     }
 
-    else if(letterParticles.length > newPositions.length){
+    else if(letterParticles.length > newPositions.length) {
+
         let index = 0;
-        for(let i = 0, x = newPositions.length; i < x; i++){
+
+        for(let i = 0, x = newPositions.length; i < x; i++) {
+
             let oldParticlesPerNew = Math.ceil((letterParticles.length - index) / (newPositions.length - i));
             let array = [];
-            for(let j = 0, x = oldParticlesPerNew; j < x; j++){
+
+            for(let j = 0, x = oldParticlesPerNew; j < x; j++) {
+
                 letterParticles[j+index].destination = newPositions[i];
                 letterParticles[j+index].originalX = newPositions[i].x;
                 letterParticles[j+index].originalY = newPositions[i].y;
@@ -174,7 +219,7 @@ function formWord(word, random){
 
             array.sort(compare)
 
-            for(let i = 1, x = array.length; i < x; i++){
+            for(let i = 1, x = array.length; i < x; i++) {
                 array[i].duplicate = true;
             }
 
@@ -182,13 +227,15 @@ function formWord(word, random){
         }
     }
 
-    if(letterParticles.length == newPositions.length){
-        for(let i = 0, x = letterParticles.length; i < x; i++){
+    if(letterParticles.length == newPositions.length) {
+
+        for(let i = 0, x = letterParticles.length; i < x; i++) {
             let p = letterParticles[i];
 
-            if(i >= newPositions.length){
+            if(i >= newPositions.length) {
                 return
             }
+
             p.destination = newPositions[i];
             p.originalX = newPositions[i].x;
             p.originalY = newPositions[i].y;
