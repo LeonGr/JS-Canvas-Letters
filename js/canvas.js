@@ -1,8 +1,10 @@
 // Declare canvas stuff
 let canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
 
-canvas.width = document.body.offsetWidth;
-canvas.height = document.body.offsetHeight;
+//canvas.width = document.body.offsetWidth;
+//canvas.height = document.body.offsetHeight;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 // Array to store all particles that make up the letters
 let letterParticles = [];
@@ -123,7 +125,7 @@ function update(){
 function render(){
 	draw();
 	update();
-    requestAnimationFrame(render);
+    window.requestAnimationFrame(render);
 }
 
 render();
@@ -156,7 +158,6 @@ let shouldSpread = true;
 
 // Method that draws the next word in the sequence
 let sequenceChanger = () => {
-
     // If the word is being changed or should be stopped return
     if (changingWord || stopSequence){
         return;
